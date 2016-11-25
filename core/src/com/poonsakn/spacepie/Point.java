@@ -11,7 +11,7 @@ public class Point {
 	
 	public Point () {
 		position = new Vector2 (0,0);
-		int randomRange = 200 + random.nextInt(40000);
+		int randomRange = 200 + random.nextInt(2000);
 		int randomDirection = random.nextInt(4);
 		double interval = 5;
 		size = new Vector2 ();
