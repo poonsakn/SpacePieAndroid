@@ -12,7 +12,7 @@ public class Asteroid {
 	
 	public Asteroid () {
 		position = new Vector2 (0,0);
-		int randomRange = 200 + random.nextInt(5000);
+		int randomRange = 200 + random.nextInt(40000);
 		int randomDirection = random.nextInt(4);
 		randomSize = 50 + random.nextInt(50);
 //		randomSize = 50;

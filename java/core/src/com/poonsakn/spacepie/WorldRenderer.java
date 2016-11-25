@@ -90,15 +90,16 @@ public class WorldRenderer {
 				, (float) (world.getRocket().getPosition().x-(0.5*gameoverImg.getWidth()))
 				, (float) (world.getRocket().getPosition().y-(0.2*gameoverImg.getHeight()))
 				, spacepieImg.getWidth(), spacepieImg.getHeight());
-		font.draw(batch, "touch to start." , world.getRocket().getPosition().x-80, world.getRocket().getPosition().y-200);
+		font.draw(batch, "press \'enter\' to start." , world.getRocket().getPosition().x-80, world.getRocket().getPosition().y-200);
 		batch.end();
+		System.out.println(2);
 	}
 	public void gameoverRenderer () {
 		batch.draw(gameoverImg
 				, (float) (world.getRocket().getPosition().x-(0.5*gameoverImg.getWidth()))
 				, (float) (world.getRocket().getPosition().y-(0.2*gameoverImg.getHeight()))
 				, gameoverImg.getWidth(), gameoverImg.getHeight());
-		font.draw(batch, "touch to try again." , world.getRocket().getPosition().x-80, world.getRocket().getPosition().y-200);
+		font.draw(batch, "press \'enter\' to try again." , world.getRocket().getPosition().x-80, world.getRocket().getPosition().y-200);
 
 	}
 	
