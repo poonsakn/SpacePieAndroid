@@ -31,11 +31,11 @@ public class World {
 		asteroids = new ArrayList <Asteroid> ();
 		points = new ArrayList <Point> ();
 		
-		for (int i = 0 ; i < 20000 ; i++) {
+		for (int i = 0 ; i < 1000 ; i++) {
 			asteroids.add(new Asteroid());
 		}
 		
-		for (int i = 0 ; i < 10000 ; i++) {
+		for (int i = 0 ; i < 300 ; i++) {
 			points.add(new Point());
 		}
 		rocket = new Rocket(0,0,asteroids, points);

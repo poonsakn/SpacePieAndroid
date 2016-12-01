@@ -3,11 +3,13 @@ package com.poonsakn.spacepie;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen extends ScreenAdapter {
 	private SpacePie spacePie;
@@ -16,12 +18,13 @@ public class GameScreen extends ScreenAdapter {
 	WorldRenderer worldRenderer;
 	SpriteBatch batch;
 	BitmapFont font;
+
 //	int checkGameOver = 0;
 
 	public GameScreen(SpacePie spacePie) {
 		this.spacePie = spacePie;
 		new Texture("rocket.png");
-			
+
 		world = new World (spacePie);
 		worldRenderer = new WorldRenderer(spacePie, world);
 		font = new BitmapFont();
@@ -46,7 +49,7 @@ public class GameScreen extends ScreenAdapter {
 		batch.end();
 		if (world.justLaunchGame == true) {
 			worldRenderer.startRenderer();
-			if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+			if (Gdx.input.justTouched()) {
 				world.gameLaunched();
 			}
 		}
@@ -58,19 +61,25 @@ public class GameScreen extends ScreenAdapter {
 		if (!world.justLaunchGame) {
 			world.update(delta);
 		}
-		if ((world.a == 0) && (!world.justLaunchGame)) { 
+		System.out.println("0" + Gdx.input.isTouched(0));
+		System.out.println("1" + Gdx.input.isTouched(1));
+		System.out.println("2" + Gdx.input.isTouched(2)+ "\n");
+		System.out.println();
+
+		if ((world.a == 0) && (!world.justLaunchGame) && Gdx.input.isTouched(0) && !Gdx.input.isTouched(1)) {
+			System.out.println(Gdx.input.isTouched(1));
 			updateRocketDirection();
 		} else if (world.a != 0) {
 			tryAgain();
 		}
 		camera.position.x = world.getRocket().getPosition().x;
 		camera.position.y = world.getRocket().getPosition().y;
-		
+
 		return updateRocketSpeed ();
 	}
 	
 	private void tryAgain() {
-		if (Gdx.input.isKeyPressed(Keys.ENTER)) {
+		if (Gdx.input.justTouched()) {
 			world.init(this.spacePie);
 			worldRenderer = new WorldRenderer(spacePie, world);
 		}
@@ -87,13 +96,19 @@ public class GameScreen extends ScreenAdapter {
 	}
 	
 	private void updateRocketDirection () {
-		if((Gdx.input.isKeyPressed(Keys.LEFT) && (!world.justLaunchGame))) {
+
+//		System.out.println("X  " + Gdx.input.getX() + "   Y  " + Gdx.input.getY());
+
+//		System.out.println();
+		if(((Gdx.input.getX() < 0.5*Gdx.graphics.getWidth()) && (!world.justLaunchGame))) {
 			Rocket.updateRocketRotation(-1);
+			return;
 		}
-		else if((Gdx.input.isKeyPressed(Keys.RIGHT) && (!world.justLaunchGame))) {
+		if((Gdx.input.getX() > 0.5*Gdx.graphics.getWidth()) && (!world.justLaunchGame)) {
 			Rocket.updateRocketRotation(1);
-		} 
-	}	
+			return;
+		}
+	}
 	
 	@SuppressWarnings("static-access")
 	private void renderScore () {
